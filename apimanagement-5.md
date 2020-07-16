@@ -4,20 +4,16 @@
 - [Part 2 - Developer Portal and Product Management](apimanagement-2.md) 
 - [Part 3 - Adding API's](apimanagement-3.md) 
 - [Part 4 - Caching and Policy Expressions](apimanagement-4.md) 
-- Part 5 - Versioning and Revisions ... this document
+- Part 5 - Versioning and Revisions (You are here)
 - [Part 6 - Analytics and Monitoring](apimanagement-6.md)
 - [Part 7 - Security](apimanagement-7.md)
 - [Part 8 - DevOps](apimanagement-8.md)
 
 ## Version and Revisions
 
-Versions and revisions provide you with an elegant way to manage change and the lifecycle of your APIs.
+Versions and revisions provide you with an elegant way to manage change and the lifecycle of your APIs. [https://azure.microsoft.com/en-us/blog/versions-revisions/](https://azure.microsoft.com/en-us/blog/versions-revisions/)
 
-[https://azure.microsoft.com/en-us/blog/versions-revisions/](https://azure.microsoft.com/en-us/blog/versions-revisions/)
-
-Revisions allow you to safely make non-breaking changes to your API. Developers who consume the API can be given details about the changes. Revisions also allow you to roll-back changes.
-
-With versions, you can group related APIs and associate them with a version number and scheme (path, query string or header). Versions are typically used when breaking changes are made to an API.
+Revisions allow you to safely make non-breaking changes to your API. Developers who consume the API can be given details about the changes. Revisions also allow you to rollback changes.
 
 ### Revisions
 
@@ -28,7 +24,6 @@ With versions, you can group related APIs and associate them with a version numb
 - Add a new revision called `rev2`
 
 ![Revisions](Images/APIMRevisionsMenu.png)
-![Revisions](Images/APIMRevisionsAdd.png)
 ![Revisions](Images/APIMRevisionsCreate.png)
 
 #### Add caching

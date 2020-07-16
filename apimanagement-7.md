@@ -6,16 +6,14 @@
 - [Part 4 - Caching and Policy Expressions](apimanagement-4.md)
 - [Part 5 - Versioning and Revisions](apimanagement-5.md)
 - [Part 6 - Analytics and Monitoring](apimanagement-6.md)
-- Part 7 - Security ... this document
+- Part 7 - Security (You are here)
 - [Part 8 - DevOps](apimanagement-8.md)
 
 ## Security
 
 ### JSON Web Tokens (JWT)
 
-#### JSON Web Tokens (JWT) - validate
-
-JSON Web Tokens are an open, industry standard method for representing claims securely between two parties. More info at <https://jwt.io/>
+JSON Web Tokens are an open-industry standard method for representing claims securely between two parties. More info at <https://jwt.io/>
 
 - Use the following sites
   - <https://jwt.io/> to create a JWT
@@ -25,9 +23,13 @@ JSON Web Tokens are an open, industry standard method for representing claims se
 
 ![](Images/APIMJWT.png)
 
-- Open the Calculator API 'Code View'
+In this lab, we are going to see how to use the token with your APIs
+
+#### JSON Web Tokens (JWT) - validate
+
+Open the Calculator API 'Code View'
 - Add the inbound policy to validate that JWT is valid
-  - Example shows the use of variables in an expression - useful if a value is repeated
+  - The example shows the use of variables in an expression - useful if a value is repeated
 
 ```xml
 <!-- Inbound -->
@@ -49,7 +51,7 @@ No JWT:
 
 ![](Images/APIMRequestJWTnone.png)
 
-Valid JWT in header:
+Valid JWT in the header:
 
 Note the bearer token in the Request payload.
 Make sure your JWT token has an expiry date in the future.
@@ -61,7 +63,7 @@ Make sure your JWT token has an expiry date in the future.
 - Open the Calculator API 'Code View'
 - Add the inbound policy to validate that JWT is valid and that the claim 'admin' exists
 - Invoke the API - with Authorization header as above ... should get a 200 success
-- Amend the policy with a claim name that doesnt exist e.g. 'adminx'
+- Amend the policy with a claim name that doesn't exist e.g. 'adminx'
 - Invoke the API - with Authorization header as above ... should get a 401 Unauthorized error
 
 ```xml
@@ -118,7 +120,7 @@ Checking for adminx claim:
 
 ### Managed Service Identity
 
-In Azure, an Active Directory identity can be assigned to a managed resource such as a Azure Function, App Service or even an API Management instance. Once an identity is assigned, it has the capabilities to work with other resources that leverage Azure AD for authentication, much like a service principal.
+In Azure, an Active Directory identity can be assigned to a managed resource such as an Azure Function, App Service or even an API Management instance. Once an identity is assigned, it has many capabilities to work with other resources that leverage Azure AD for authentication, much like a service principal.
 
 #### Register API Management with Active Directory
 

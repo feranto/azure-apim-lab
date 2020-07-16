@@ -3,7 +3,7 @@
 - [Part 1 - Create an API Management instance](apimanagement-1.md) 
 - [Part 2 - Developer Portal and Product Management](apimanagement-2.md) 
 - [Part 3 - Adding API's](apimanagement-3.md) 
-- Part 4 - Caching and Policy Expressions ... this document
+- Part 4 - Caching and Policy Expressions (You are here)
 - [Part 5 - Versioning and Revisions](apimanagement-5.md)
 - [Part 6 - Analytics and Monitoring](apimanagement-6.md)
 - [Part 7 - Security](apimanagement-7.md)
@@ -13,8 +13,8 @@
 
 API Management can be configured for response caching - this can significantly reduce API latency, bandwidth consumption, and web service load for data that does not change frequently.
 
-- Using the original Azure Management portal - set a caching Policy on the RandomColor API call
-  - Set a caching duraction of 15 seconds
+Using the Azure Management portal - set a caching Policy on the RandomColor API call
+  - Set a caching duration of 15 seconds
   - Simple caching configuration is not yet implemented in the Azure Management portal - we see shall see later how it can be done using policy expressions
 
 ![](Images/APIMEnableCaching.png)
@@ -33,20 +33,20 @@ API Management can be configured for response caching - this can significantly r
 
 Policy Expressions are used to control traffic to and modify the behavior of the Backend API. Using C# statements and an ability to access the API context, as well as your API Management service configuration, Policy Expressions are a powerful way to modify the behavior of the API at runtime.
 
-<https://docs.microsoft.com/en-us/azure/api-management/api-management-policies>
+Don't hesitate to read the [documentation](https://docs.microsoft.com/en-us/azure/api-management/api-management-policies)
 
 We had a brief look earlier at setting CORS policies and caching.  Lets dive in a bit deeper.
 
 ### Configuration
 
-- Select an API e.g. Color API
+Select an API e.g. Color API
 - Notice you can configure the Frontend, Inbound processing, Outbound processing, Backend
-  - Just select the Pencil icon to edit
-- Also notice, the configuration can be scoped to the API or an individual Operation
+  - Just select the Pencil icon to edit each part
+- Also notice, the configuration can be scoped to the API (All operations) or to an individual operation
 
 ![](Images/APIMPolicyEditor.png)
 
-- Edit the Frontend ...
+Edit the Frontend ...
   - If editing an Operation - this gives a choice of the 'Code View' editor or Forms-based editor
   - If editing an API - the only option is the 'Code View' editor
   - The 'Code View' editor allows amendments to the Swagger (OpenAPI) definition
@@ -55,7 +55,7 @@ We had a brief look earlier at setting CORS policies and caching.  Lets dive in 
 
 ![](Images/APIMFrontendFormEditor.png)
 
-- Edit Inbound processing / Outbound processong / Backend
+- Edit Inbound processing / Outbound processing / Backend
   - Have a choice of the 'Code View' editor or selecting an [Add Policy] Form
 
 ![](Images/APIMInboundProcessing.png)
@@ -68,15 +68,13 @@ We had a brief look earlier at setting CORS policies and caching.  Lets dive in 
 
 #### HTTP Response Caching
 
-- Look at RandomColor API
-- Switch to 'Code View'
-  - See the caching policies (set from earlier)
+Look at RandomColor API, switch to 'Code View' and check the caching policies (set from earlier)
 
 ```xml
 <!-- Inbound -->
-  <cache-lookup vary-by-developer="false"
-      vary-by-developer-groups="false"
-      downstream-caching-type="none" />
+<cache-lookup vary-by-developer="false"
+              vary-by-developer-groups="false"
+              downstream-caching-type="none" />
 
 <!-- Outbound -->
 <cache-store duration="15" />
@@ -84,11 +82,11 @@ We had a brief look earlier at setting CORS policies and caching.  Lets dive in 
 
 #### Transformation - XML to JSON
 
-Frequent requirement is to transform content
+A frequent requirement is to transform content, especially with legacy APIs
 
-- Remember the Calc API ... this returned XML
+Remember the Calc API that returned XML
 - Open the Calculator API 'Code View'
-- Add the outbound policy to transform response body to JSON
+- Add the outbound policy to transform the response's body to JSON
 - Invoke the API and examine the response - note that its now JSON
 
 ```xml
@@ -100,7 +98,7 @@ Frequent requirement is to transform content
 
 #### Named Values collection
 
-Named Values (aka Properties) are a collection of key/value pairs that are global to the service instance. These properties can be used to manage constant string values across all API configuration and policies.  Values can be expressions or secrets (never displayed).
+Named Values (aka Properties) are a collection of key/value pairs that are global to the service instance. These properties can be used to manage constant string values across all API configurations and policies.  Values can be expressions or secrets (never displayed).
 
 - Set a property called `TimeNow`
   - e.g. `@(DateTime.Now.ToString())`
@@ -131,7 +129,7 @@ Named Values (aka Properties) are a collection of key/value pairs that are globa
 
 #### Delete response headers
 
-Frequent requirement is to remove headers - example those that might leak potential security information
+A frequent requirement is to remove headers - example those that might leak potential security information
 
 - Open the Calculator API 'Code View'
 - Add the outbound policy to delete the response headers
@@ -157,7 +155,7 @@ More info <https://docs.microsoft.com/en-us/azure/api-management/api-management-
 
 - Open the Calculator API 'Code View'
 - Add the inbound policy to amend the query string and header
-- Invoke the API - use the Trace function to examine what was passed to backend
+- Invoke the API - use the Trace function to examine what was passed to the backend
 
 ```xml
 <!-- Inbound -->
@@ -218,7 +216,7 @@ With Unlimited key:
 #### Aborting the processing
 
 - Open the Calculator API 'Code View'
-- Add the inbound policy to test for a condition and return error
+- Add the inbound policy to test for a condition and return an error
 - Invoke the API - with Authorization header as above ... should get a 599 error
 - Replace the condition with some more meaningful code
 
@@ -239,11 +237,11 @@ With Unlimited key:
 
 ![](Images/APIMResponseAbort.png)
 
-#### Send message to Microsoft Teams channel
+#### Send a message to Microsoft Teams channel
 
-Alternatively use Slack
+> It can also be done with Slack
 
-This example shows 'Send one way request' ... sends a request to the specified URL without waiting for a response.  Another option is to Send request and Wait.  Complex in flight processing logic is better handled by using Logic Apps.
+This example shows 'Send one-way request' ... sends a request to the specified URL without waiting for a response.  Another option is to [Send request] and Wait.  Complex in-flight processing logic is better handled by using Logic Apps.
 
 For Microsoft Teams
 

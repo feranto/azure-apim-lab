@@ -5,15 +5,15 @@
 - [Part 3 - Adding API's](apimanagement-3.md) 
 - [Part 4 - Caching and Policy Expressions](apimanagement-4.md) 
 - [Part 5 - Versioning and Revisions](apimanagement-5.md) 
-- Part 6 - Analytics and Monitoring ... this document
+- Part 6 - Analytics and Monitoring (You are here)
 - [Part 7 - Security](apimanagement-7.md)
 - [Part 8 - DevOps](apimanagement-8.md)
 
 # Basic Monitoring with Azure Monitor
 
-Analytics is available in the Azure management portal from the Analyics blade.
+Analytics is available in the Azure management portal from the Analytics blade.
 
-- Look at dashboard and detailed :  Timeline | Geography | APIs | Operations | Products | Subscriptions | Users | Requests
+- Look at the dashboard and detailed :  Timeline | Geography | APIs | Operations | Products | Subscriptions | Users | Requests
 
 ![](Images/APIMAnalytics.png)
 
@@ -23,10 +23,6 @@ Analytics is available in the Azure management portal from the Analyics blade.
 # How to integrate Azure API Management with Azure Application Insights
 
 Azure API Management allows for easy integration with Azure Application Insights - an extensible service for web developers building and managing apps on multiple platforms. This guide walks through every step of such integration and describes strategies for reducing performance impact on your API Management service instance.
-
-### Prerequisites
-
-To follow this guide, you need to have an Azure API Management instance. 
 
 ### Create an Azure Application Insights instance
 
@@ -56,7 +52,7 @@ Before you can use Azure Application Insights, you first need to create an insta
 
 1. Navigate to your **Azure API Management service instance** in the **Azure portal**.
 2. Select **APIs** from the menu on the left.
-3. Click on your API, in this case **Demo Conference API**.
+3. Click on your API, for example **Color API**.
 4. Go to the **Settings** tab from the top bar.
 5. Scroll down to the **Diagnostics Logs** section.  
     ![App Insights logger](Images/apim-app-insights-api-1.png)  
@@ -103,13 +99,17 @@ A failed request is a request, which:
 + triggered an *on-error* section of the API policies, or
 + has a response HTTP status code matching 4xx or 5xx.
 
+If you go into your Application Insights instance, after few seconds, you should be able to see logs and metrics
+
+![App Insights logger](Images/apim-app-insights-api-2.png)  
+
 ### Performance implications and log sampling
 
 > Logging all events may have serious performance implications, depending on incoming requests rate.
 
 Based on internal load tests, enabling this feature caused a 40%-50% reduction in throughput when request rate exceeded 1,000 requests per second. Azure Application Insights is designed to use statistical analysis for assessing application performances. It is not intended to be an audit system and is not suited for logging each individual request for high-volume APIs.
 
-You can manipulate the number of requests being logged by adjusting the **Sampling** setting (see the steps above). Value 100% means all requests are logged, while 0% reflects no logging at all. **Sampling** helps to reduce volume of telemetry, effectively preventing from significant performance degradation, while still carrying the benefits of logging.
+You can manipulate the number of requests being logged by adjusting the **Sampling** setting (see the steps above). Value 100% means all requests are logged, while 0% reflects no logging at all. **Sampling** helps to reduce the volume of telemetry, effectively preventing from significant performance degradation, while still carrying the benefits of logging.
 
 Skipping logging of headers and body of requests and responses will also have positive impact on alleviating performance issues.
 
