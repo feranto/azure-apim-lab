@@ -16,7 +16,7 @@ Index
 
 Additional Topics
 - [Provision your own instance of ColorWeb/ColorAPI](apimanagement-A)
-- [Proxy to Serverless](apimanagement-B)
+- [API Proxy to Serverless](apimanagement-B)
 
 Slides
 - [Azure API Management Slides](/slides/APIM.pptx)
