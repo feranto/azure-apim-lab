@@ -14,6 +14,10 @@ Index
 - [Part 7 - Security](apimanagement-7.md)
 - [Part 8 - DevOps](apimanagement-8.md)
 
+Additional Topics
+- [Provision your own instance of ColorWeb/ColorAPI](apimanagement-A)
+- [Proxy to Serverless](apimanagement-B)
+
 Slides
 - [Azure API Management Slides](/slides/APIM.pptx)
 
@@ -24,8 +28,8 @@ Authors
 - [Fernando Mejía](https://github.com/feranto)
 - [Louis-Guillaume MORAND](https://github.com/lgmorand)
 
-[Based on the original APIM Lab by Mark Harrison.](https://github.com/markharrison/Lab_APIM)
+[Based on the original APIM Lab by Mark Harrison.](https://github.com/markharrison/Lab_APIM_Original)
 
-Last Updated: 07/15/2020
+Last Updated: 17/Aug/2020
 
 ---
