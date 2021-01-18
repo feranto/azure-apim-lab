@@ -29,7 +29,7 @@ With the container we can deploy to multiple hosting options : VM's, App Service
 1. Login to Azure Portal at http://portal.azure.com.
 2. Open the Azure Cloud Shell and choose Bash Shell (do not choose Powershell)
 
-   ![Azure Cloud Shell](images/img-cloud-shell.png "Azure Cloud Shell")
+   ![Azure Cloud Shell](Images/img-cloud-shell.png "Azure Cloud Shell")
 
 3. The first time Cloud Shell is started will require you to create a storage account. 
 4. We proceed to create a unique identifier suffix for resources created in this Lab:
