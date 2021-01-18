@@ -22,7 +22,7 @@ Docker Containers exist for these applications and so provides an easy deploymen
   - docker pull markharrison/colorweb:latest
   - docker pull markharrison/colorapi:latest
 
-With the container we can deploy to multiple hosting options : VM's, App Services, ACI and also AKS. We are going to show you two options, please be sure just to deploy with one of the alternatives : ACI or App Services.
+With the container we can deploy to multiple hosting options : VM's, App Services, ACI and also AKS. In this lab we are going to show you how to do it with [Azure Container Instances](https://docs.microsoft.com/en-us/azure/container-instances/).
 
 # Deploying Web and API containers with Azure Container Instances
 
@@ -73,7 +73,7 @@ echo export APIMLAB_DNSLABEL_WEB=$APIMLAB_DNSLABEL_WEB >> ~/.bashrc
 
 
 #we create the resource group
-az container create --resource-group $APIMLAB_RGNAME --name $APIMLAB_COLORS_WEB --image $APIMLAB_IMAGE_WEB --dns-name-label $APIMLAB_DNSLABEL_WEB --ports 80
+az container create --resource-group $APIMLAB_RGNAME --name $APIMLAB_COLORS_WEB --image $APIMLAB_IMAGE_WEB --dns-name-label $APIMLAB_DNSLABEL_WEB --ports 80 --no-wait
 ```
 7.   Now we run the following command to check the status of the deployment and get the FQDN to access the app:
 ```
@@ -93,10 +93,40 @@ Once we have a "Succeeded" message we proceed to navigate to the FQDN. And we sh
 
 ![](Images/APIMColorWebUnlimited.png)
 
-8.  Now we proceed to create the ACI for the colors-api github container
+8.  Now we proceed to create the ACI for the colors-api github container:
+```
+#we define some variables first
+APIMLAB_COLORS_API=mycolorsapi-$APIMLAB_UNIQUE_SUFFIX
+APIMLAB_IMAGE_API=ghcr.io/markharrison/coloursapi:latest
+APIMLAB_DNSLABEL_API=aci-color-api-$APIMLAB_UNIQUE_SUFFIX
+# Persist for Later Sessions in Case of Timeout
+echo export APIMLAB_COLORS_WEB=$APIMLAB_COLORS_WEB >> ~/.bashrc
+echo export APIMLAB_IMAGE_WEB=$APIMLAB_IMAGE_WEB >> ~/.bashrc
+echo export APIMLAB_DNSLABEL_WEB=$APIMLAB_DNSLABEL_WEB >> ~/.bashrc
 
 
-# Deploying with Azure App Services
+#we create the resource group
+az container create --resource-group $APIMLAB_RGNAME --name $APIMLAB_COLORS_API --image $APIMLAB_IMAGE_API --dns-name-label $APIMLAB_DNSLABEL_API --ports 80 --no-wait
+```
+
+9.  Now we run the following command to check the status of the deployment and get the FQDN to access the app:
+```
+#we check the status
+az container show --resource-group $APIMLAB_RGNAME --name $APIMLAB_COLORS_API --query "{FQDN:ipAddress.fqdn,ProvisioningState:provisioningState}" --out table
+```
+
+The output should something like this:
+
+```
+FQDN                                                  ProvisioningState
+----------------------------------------------------  -------------------
+aci-color-api-fernando22287.eastus.azurecontainer.io  Succeeded
+```
+
+Once we have a "Succeeded" message we proceed to navigate to the FQDN. And we should see our home page for our Colors Web:
+
+![](Images/APIMACICOLORAPI.png)
+
 
 ---
 [Home](README.md)  
